@@ -1,0 +1,45 @@
+:root {
+  --light: #f3f4fc;
+  --primary: #0d6efd;
+}
+
+.app {
+  background-color: var(--light);
+  color: #403f41;
+}
+
+.form-control,
+.form-check-input,
+.btn {
+  box-shadow: none !important;
+}
+
+.icon-hover-circle {
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 1rem;
+  width: 2.5em;
+  height: 2.5em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-hover-circle:hover {
+  cursor: pointer;
+  background-color: var(--light);
+  color: var(--primary);
+}
+
+.nav-link {
+  color: inherit;
+}
+
+.nav-link.active {
+  color: var(--primary);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

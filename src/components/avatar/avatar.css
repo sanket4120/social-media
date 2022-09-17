@@ -1,0 +1,19 @@
+.avatar {
+  width: 3rem;
+  height: 3rem;
+}
+
+.avatar-sm {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.avatar-lg {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.avatar-xl {
+  width: 6rem;
+  height: 6rem;
+}
