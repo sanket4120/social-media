@@ -47,7 +47,6 @@ function App() {
               <Route path='followers' element={<Followers />} />
               <Route path='following' index element={<Following />} />
             </Route>
-            <Route path='/post/:postId' element={<PostDetails />} />
           </Route>
         </Routes>
       </Container>
