@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Avatar } from '../avatar/Avatar';
 import { createPost } from '../../actions';
 
 const CreatePost = () => {
   const [post, setPost] = useState('');
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +18,10 @@ const CreatePost = () => {
   return (
     <div className='d-flex p-3 gap-1'>
       <div>
-        <Avatar src='https://res.cloudinary.com/svj/image/upload/v1658063130/7309681_sp13za.jpg' />
+        <Avatar src={user.profileImage}>
+          {user.firstName[0].toUpperCase()}
+          {user.lastName[0].toUpperCase()}
+        </Avatar>
       </div>
 
       <Form className='d-flex flex-column flex-grow-1' onSubmit={handleSubmit}>
