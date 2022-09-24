@@ -4,7 +4,7 @@ import App from './App';
 import { makeServer } from './server';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store from './store';
 import './index.css';
 
 // Call make Server

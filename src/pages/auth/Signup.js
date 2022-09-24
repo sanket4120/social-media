@@ -3,14 +3,7 @@ import { Link } from 'react-router-dom';
 import { useUserSignup } from '../../utils/useUserSignup';
 
 const Signup = () => {
-  const {
-    formData,
-    handleSubmit,
-    loading,
-    handleChange,
-    showPassword,
-    setShowPassword,
-  } = useUserSignup();
+  const { formData, handleSubmit, loading, handleChange } = useUserSignup();
 
   const {
     firstName,
@@ -24,7 +17,7 @@ const Signup = () => {
 
   return (
     <div className='min-vh-100 d-flex align-items-center'>
-      <div className='auth-container bg-white rounded-2 p-4 mx-auto w-100 shadow-sm border my-5'>
+      <div className='auth-container rounded-3 p-4 mx-auto w-100 border my-5'>
         <h1 className='text-center mb-3 fs-2'>
           Signup for <span className='text-primary'>Socio</span>
         </h1>
@@ -86,7 +79,7 @@ const Signup = () => {
           <Form.Group className='mb-3'>
             <Form.Label>Password</Form.Label>
             <Form.Control
-              type={showPassword ? 'text' : 'password'}
+              type='password'
               placeholder='Enter your password'
               name='password'
               value={password}
@@ -99,7 +92,7 @@ const Signup = () => {
           <Form.Group className='mb-3'>
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
-              type={showPassword ? 'text' : 'password'}
+              type='password'
               placeholder='Re-enter your password'
               name='confirmPassword'
               value={confirmPassword}
@@ -111,20 +104,10 @@ const Signup = () => {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group className='mb-3'>
-            <Form.Check
-              type='checkbox'
-              id='show password'
-              label='Show Password'
-              checked={showPassword}
-              onChange={(e) => setShowPassword(e.target.checked)}
-            />
-          </Form.Group>
-
           <Button
             variant='primary'
             type='submit'
-            className='w-100 mb-3'
+            className='w-100 mb-3 rounded-pill'
             disabled={loading}
           >
             {loading ? (

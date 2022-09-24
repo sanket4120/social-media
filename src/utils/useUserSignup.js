@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { validateSignup, validateSignupField } from './validate';
-import { signup } from '../redux/index';
+import { signup } from '../actions';
 
 const useUserSignup = () => {
   const [formData, setFormData] = useState({
@@ -21,11 +21,10 @@ const useUserSignup = () => {
       username: '',
     },
   });
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   let from = location.state?.from || '/';
-  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const { isAuthenticated, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -86,8 +85,6 @@ const useUserSignup = () => {
 
   return {
     handleChange,
-    showPassword,
-    setShowPassword,
     formData,
     handleSubmit,
     loading,

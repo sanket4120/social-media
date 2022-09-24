@@ -1,4 +1,4 @@
-import { setAuthToken } from '../../utils/setAuthToken';
+import { setAuthToken } from '../utils/setAuthToken';
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -7,16 +7,22 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAIL,
-} from './authConstants';
+  FOLLOW_USER_REQUEST,
+  FOLLOW_USER_SUCCESS,
+  FOLLOW_USER_FAIL,
+  UNFOLLOW_USER_REQUEST,
+  UNFOLLOW_USER_SUCCESS,
+  UNFOLLOW_USER_FAIL,
+} from '../constants/userConstants';
 
 const initialState = {
   isAuthenticated: false,
-  userInfo: null,
+  user: null,
   loading: false,
   error: null,
 };
 
-const authReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -29,7 +35,7 @@ const authReducer = (state = initialState, action) => {
       setAuthToken(payload.encodedToken);
       return {
         loading: false,
-        userInfo: payload.user,
+        user: payload.user,
         isAuthenticated: true,
         error: null,
       };
@@ -40,7 +46,7 @@ const authReducer = (state = initialState, action) => {
       return {
         loading: false,
         error: payload,
-        userInfo: null,
+        user: null,
         isAuthenticated: false,
       };
     case USER_LOGOUT:
@@ -49,13 +55,27 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: false,
-        userInfo: null,
+        user: null,
         loading: false,
         error: null,
       };
+    case FOLLOW_USER_REQUEST:
+    case UNFOLLOW_USER_REQUEST:
+      return { ...state, loading: true };
+    case UNFOLLOW_USER_SUCCESS:
+    case FOLLOW_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        user: payload,
+      };
+    case UNFOLLOW_USER_FAIL:
+    case FOLLOW_USER_FAIL:
+      return { ...state, loading: false, error: payload };
     default:
       return state;
   }
 };
 
-export default authReducer;
+export default userReducer;
