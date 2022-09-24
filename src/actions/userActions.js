@@ -1,7 +1,17 @@
 import {
+  ADD_BOOKMARK_FAIL,
+  ADD_BOOKMARK_REQUEST,
+  ADD_BOOKMARK_SUCCESS,
   FOLLOW_USER_FAIL,
   FOLLOW_USER_REQUEST,
   FOLLOW_USER_SUCCESS,
+  GET_BOOKMARKS_REQUEST,
+  LIKE_POST_FAIL,
+  LIKE_POST_REQUEST,
+  LIKE_POST_SUCCESS,
+  REMOVE_BOOKMARK_FAIL,
+  REMOVE_BOOKMARK_REQUEST,
+  REMOVE_BOOKMARK_SUCCESS,
   UNFOLLOW_USER_FAIL,
   UNFOLLOW_USER_REQUEST,
   UNFOLLOW_USER_SUCCESS,
@@ -13,9 +23,9 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
 } from '../constants/userConstants';
-import axios from 'axios';
 import toast from 'react-hot-toast';
-import { USER_DETAILS_SUCCESS } from '../constants/userDetailsConstants';
+import axios from 'axios';
+import { UPDATE_USER_FOLLOWERS } from '../constants/userDetailsConstants';
 
 const login = (loginCredentials) => async (dispatch) => {
   dispatch({ type: USER_LOGIN_REQUEST });
@@ -73,7 +83,10 @@ const followUser = (followUserId) => async (dispatch) => {
 
     const res = await axios.post(`/api/users/follow/${followUserId}`);
     dispatch({ type: FOLLOW_USER_SUCCESS, payload: res.data.user });
-    dispatch({ type: USER_DETAILS_SUCCESS, payload: res.data.followUser });
+    dispatch({
+      type: UPDATE_USER_FOLLOWERS,
+      payload: res.data.followUser.followers,
+    });
   } catch (error) {
     dispatch({ type: FOLLOW_USER_FAIL, payload: 'Server Error' });
   }
@@ -85,10 +98,78 @@ const unfollowUser = (unfollowUserId) => async (dispatch) => {
 
     const res = await axios.post(`/api/users/unfollow/${unfollowUserId}`);
     dispatch({ type: UNFOLLOW_USER_SUCCESS, payload: res.data.user });
-    dispatch({ type: USER_DETAILS_SUCCESS, payload: res.data.followUser });
+    dispatch({
+      type: UPDATE_USER_FOLLOWERS,
+      payload: res.data.followUser.followers,
+    });
   } catch (error) {
     dispatch({ type: UNFOLLOW_USER_FAIL, payload: 'Server Error' });
   }
 };
 
-export { login, signup, logout, followUser, unfollowUser };
+const getBookmarks = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_BOOKMARKS_REQUEST });
+    const res = await axios.get('/api/users/bookmark');
+    dispatch({ type: GET_BOOKMARKS_REQUEST, payload: res.data.bookmarks });
+  } catch (error) {
+    dispatch({ type: GET_BOOKMARKS_REQUEST, payload: 'Server Error' });
+  }
+};
+
+const addToBookmarks = (postId) => async (dispatch) => {
+  try {
+    dispatch({ type: ADD_BOOKMARK_REQUEST });
+    const res = await axios.post(`/api/users/bookmark/${postId}`);
+    dispatch({ type: ADD_BOOKMARK_SUCCESS, payload: res.data.bookmarks });
+    toast.success('Added to bookmarks');
+  } catch (error) {
+    dispatch({ type: ADD_BOOKMARK_FAIL, payload: 'Server Error' });
+  }
+};
+
+const removeFromBookmarks = (postId) => async (dispatch) => {
+  try {
+    dispatch({ type: REMOVE_BOOKMARK_REQUEST });
+    const res = await axios.post(`/api/users/remove-bookmark/${postId}`);
+    dispatch({ type: REMOVE_BOOKMARK_SUCCESS, payload: res.data.bookmarks });
+    toast.success('Removed from bookmarks');
+  } catch (error) {
+    dispatch({ type: REMOVE_BOOKMARK_FAIL, payload: 'Server Error' });
+  }
+};
+
+const likePost = (postId) => async (dispatch) => {
+  try {
+    dispatch({ type: LIKE_POST_REQUEST });
+    const res = await axios.post(`/api/posts/like/${postId}`);
+    dispatch({ type: LIKE_POST_SUCCESS, payload: res.data.posts });
+    toast.success('Added to liked posts');
+  } catch (error) {
+    dispatch({ type: LIKE_POST_FAIL, payload: 'Server Error' });
+  }
+};
+
+const dislikePost = (postId) => async (dispatch) => {
+  try {
+    dispatch({ type: LIKE_POST_REQUEST });
+    const res = await axios.post(`/api/posts/dislike/${postId}`);
+    dispatch({ type: LIKE_POST_SUCCESS, payload: res.data.posts });
+    toast.success('Removed from liked posts');
+  } catch (error) {
+    dispatch({ type: LIKE_POST_FAIL, payload: 'Server Error' });
+  }
+};
+
+export {
+  login,
+  signup,
+  logout,
+  followUser,
+  unfollowUser,
+  getBookmarks,
+  addToBookmarks,
+  removeFromBookmarks,
+  likePost,
+  dislikePost,
+};

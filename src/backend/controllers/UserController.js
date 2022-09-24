@@ -1,5 +1,6 @@
 import { Response } from 'miragejs';
 import { formatDate, requiresAuth } from '../utils/authUtils';
+import { getPostWithUserDetails } from '../utils/userUtils';
 
 /**
  * All the routes related to user are present here.
@@ -111,7 +112,12 @@ export const getBookmarkPostsHandler = function (schema, request) {
         }
       );
     }
-    return new Response(200, {}, { bookmarks: user.bookmarks });
+
+    const postsWithDetail = user.bookmarks.map((post) =>
+      getPostWithUserDetails(schema, post)
+    );
+
+    return new Response(200, {}, { bookmarks: postsWithDetail });
   } catch (error) {
     return new Response(
       500,
@@ -158,7 +164,12 @@ export const bookmarkPostHandler = function (schema, request) {
       { _id: user._id },
       { ...user, updatedAt: formatDate() }
     );
-    return new Response(200, {}, { bookmarks: user.bookmarks });
+
+    const postsWithDetail = user.bookmarks.map((post) =>
+      getPostWithUserDetails(schema, post)
+    );
+
+    return new Response(200, {}, { bookmarks: postsWithDetail });
   } catch (error) {
     return new Response(
       500,
@@ -204,7 +215,12 @@ export const removePostFromBookmarkHandler = function (schema, request) {
       { _id: user._id },
       { ...user, updatedAt: formatDate() }
     );
-    return new Response(200, {}, { bookmarks: user.bookmarks });
+
+    const postsWithDetail = user.bookmarks.map((post) =>
+      getPostWithUserDetails(schema, post)
+    );
+
+    return new Response(200, {}, { bookmarks: postsWithDetail });
   } catch (error) {
     return new Response(
       500,

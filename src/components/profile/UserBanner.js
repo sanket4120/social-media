@@ -64,7 +64,7 @@ const UserBanner = () => {
 
       <p>
         <span className='me-3'>
-          <b>{user.posts.length}</b> Posts
+          <b>{user?.posts?.length}</b> Posts
         </span>
         <span className='me-3'>
           <b>{user.followers.length}</b> Followers
