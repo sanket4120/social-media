@@ -1,4 +1,5 @@
 import {
+  UPDATE_USER_FOLLOWERS,
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -18,6 +19,8 @@ const userDetailsReducer = (state = initialState, action) => {
         user: payload,
         error: null,
       };
+    case UPDATE_USER_FOLLOWERS:
+      return { ...state, user: { ...state.user, followers: payload } };
     case USER_DETAILS_FAIL:
       return {
         ...state,

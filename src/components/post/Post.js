@@ -1,16 +1,42 @@
 import { Card } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {
+  addToBookmarks,
+  removeFromBookmarks,
+  likePost,
+  dislikePost,
+} from '../../actions';
 import { Avatar } from '../avatar/Avatar';
 import './post.css';
 
 const Post = ({ post }) => {
   const { user } = useSelector((state) => state.user);
-  const { userDetails, content, likes, comments } = post;
+  const { bookmarks } = useSelector((state) => state.bookmarks);
+  const { userDetails, content, likes, comments, _id } = post;
   const { firstName, lastName, username, profileImage } = userDetails;
   const createdAt = new Date(post.createdAt).toLocaleDateString('en-us', {
     day: 'numeric',
     month: 'long',
   });
+  const dispatch = useDispatch();
+  let isBookmarked = false;
+  let isLiked = false;
+
+  isBookmarked = bookmarks?.some((currentPost) => currentPost._id === _id);
+  isLiked = post?.likes?.likedBy?.some(
+    (currentUser) => currentUser._id === user._id
+  );
+
+  const toggleBookmark = () => {
+    isBookmarked
+      ? dispatch(removeFromBookmarks(_id))
+      : dispatch(addToBookmarks(_id));
+  };
+
+  const toggleLike = () => {
+    isLiked ? dispatch(dislikePost(_id)) : dispatch(likePost(_id));
+  };
 
   return (
     <Card className='d-flex flex-row border-0 border-bottom rounded-0 post'>
@@ -20,15 +46,15 @@ const Post = ({ post }) => {
 
       <div>
         <Card.Header className='d-flex align-items-center justify-content-between border-bottom-0'>
-          <div className='d-flex align-items-center'>
-            <p className='m-0 '>
+          <div className='d-flex align-items-center user'>
+            <Link to={`/profile/${username}`}>
               <span className='fw-bold text-capitalize d-block'>
                 {firstName} {lastName}
               </span>
               <span className='text-secondary'>
                 @{username} · {createdAt}
               </span>
-            </p>
+            </Link>
           </div>
 
           {user._id === userDetails._id && (
@@ -43,8 +69,12 @@ const Post = ({ post }) => {
         <Card.Footer className='border-top-0'>
           <div className='d-flex justify-content-between'>
             <ul className='list-unstyled mb-0 d-flex gap-3'>
-              <li title='like'>
-                <i className='fa-regular fa-heart icon-hover-circle'></i>
+              <li title={`${isLiked ? 'liked' : 'like'}`} onClick={toggleLike}>
+                <i
+                  className={`fa-${
+                    isLiked ? 'solid' : 'regular'
+                  } fa-heart icon-hover-circle`}
+                ></i>
                 {likes.likeCount}
               </li>
               <li title='comment'>
@@ -53,9 +83,15 @@ const Post = ({ post }) => {
               </li>
             </ul>
             <ul className='list-unstyled mb-0'>
-              <li title='bookmark'>
-                <i className='fa-regular fa-bookmark icon-hover-circle'></i>
-              </li>
+              {isBookmarked ? (
+                <li title='bookmarked' onClick={toggleBookmark}>
+                  <i className='fa-solid fa-bookmark icon-hover-circle'></i>
+                </li>
+              ) : (
+                <li title='bookmark' onClick={toggleBookmark}>
+                  <i className='fa-regular fa-bookmark icon-hover-circle'></i>
+                </li>
+              )}
             </ul>
           </div>
         </Card.Footer>

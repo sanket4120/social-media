@@ -16,6 +16,7 @@ import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getAllPosts, getAllUsers } from './actions';
+import { getBookmarks } from './actions/userActions';
 
 function App() {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -25,6 +26,7 @@ function App() {
     if (isAuthenticated) {
       dispatch(getAllPosts());
       dispatch(getAllUsers());
+      dispatch(getBookmarks);
     }
   }, [dispatch, isAuthenticated]);
 
