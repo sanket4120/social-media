@@ -41,7 +41,12 @@ const Post = ({ post }) => {
   return (
     <Card className='d-flex flex-row border-0 border-bottom rounded-0 post'>
       <div className='ps-2 pt-2'>
-        <Avatar src={profileImage} />
+        <Avatar src={profileImage}>
+          <span>
+            {firstName[0].toUpperCase()}
+            {lastName[0].toUpperCase()}
+          </span>
+        </Avatar>
       </div>
 
       <div className='flex-grow-1'>

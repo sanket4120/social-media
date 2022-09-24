@@ -13,7 +13,12 @@ const User = ({ user, children, className, ...rest }) => {
           size='sm'
           src={user.profileImage}
           className='align-self-start mt-1'
-        />
+        >
+          <span>
+            {user.firstName[0].toUpperCase()}
+            {user.lastName[0].toUpperCase()}
+          </span>
+        </Avatar>
         <div>
           <Link
             to={`/profile/${user.username}`}

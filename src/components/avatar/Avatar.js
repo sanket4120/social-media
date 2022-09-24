@@ -1,7 +1,7 @@
 import { Image } from 'react-bootstrap';
 import './avatar.css';
 
-const Avatar = ({ src, size, ...rest }) => {
+const Avatar = ({ src, size, children, ...rest }) => {
   return (
     <div {...rest}>
       {src ? (
@@ -17,7 +17,7 @@ const Avatar = ({ src, size, ...rest }) => {
           }`}
         >
           <span className='w-100 h-100 d-flex align-items-center justify-content-center m-0 p-2'>
-            SJ
+            {children}
           </span>
         </div>
       )}

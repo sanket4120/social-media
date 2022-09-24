@@ -51,14 +51,6 @@ const Search = ({ className, ...restAttrs }) => {
                       to={`/profile/${user.username}`}
                     >
                       <User user={user} />
-
-                      {/* <Avatar size='sm' src={user.profileImage} />
-                      <p className='mb-0 ms-3 d-flex flex-column'>
-                        <span className='fw-bold text-capitalize'>
-                          {user.firstName} {user.lastName}
-                        </span>
-                        <span className='text-secondary'>@{user.username}</span>
-                      </p> */}
                     </Link>
                   </ListGroup.Item>
                 ))
