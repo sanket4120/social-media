@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getAllPosts, getAllUsers } from './actions';
 import { getBookmarks } from './actions/userActions';
+import { PostDetails } from './pages/postDetails/PostDetails';
 
 function App() {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -46,6 +47,7 @@ function App() {
               <Route path='followers' element={<Followers />} />
               <Route path='following' index element={<Following />} />
             </Route>
+            <Route path='/post/:postId' element={<PostDetails />} />
           </Route>
         </Routes>
       </Container>

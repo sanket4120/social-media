@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Button, Nav } from 'react-bootstrap';
 import './navbar.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -53,9 +53,13 @@ const Navbar = () => {
         </NavLink>
       ))}
 
-      <Button variant='primary' className='mb-2 d-none d-md-block'>
+      <Link
+        to='/'
+        variant='primary'
+        className='btn btn-primary mb-2 d-none d-md-block'
+      >
         Add Post
-      </Button>
+      </Link>
 
       <Button variant='outline-danger d-none d-md-block' onClick={handleLogout}>
         <i className='fa-solid fa-arrow-right-from-bracket me-2'></i> Logout

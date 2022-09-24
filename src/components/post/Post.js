@@ -44,7 +44,7 @@ const Post = ({ post }) => {
         <Avatar src={profileImage} />
       </div>
 
-      <div>
+      <div className='flex-grow-1'>
         <Card.Header className='d-flex align-items-center justify-content-between border-bottom-0'>
           <div className='d-flex align-items-center user'>
             <Link to={`/profile/${username}`}>
@@ -68,7 +68,7 @@ const Post = ({ post }) => {
 
         <Card.Footer className='border-top-0'>
           <div className='d-flex justify-content-between'>
-            <ul className='list-unstyled mb-0 d-flex gap-3'>
+            <ul className='list-unstyled mb-0 d-flex gap-3 postlinks'>
               <li title={`${isLiked ? 'liked' : 'like'}`} onClick={toggleLike}>
                 <i
                   className={`fa-${
@@ -77,10 +77,10 @@ const Post = ({ post }) => {
                 ></i>
                 {likes.likeCount}
               </li>
-              <li title='comment'>
+              {/* <li title='comment'>
                 <i className='fa-regular fa-message icon-hover-circle'></i>
                 {comments.length}
-              </li>
+              </li> */}
             </ul>
             <ul className='list-unstyled mb-0'>
               {isBookmarked ? (

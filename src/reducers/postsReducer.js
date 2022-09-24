@@ -7,6 +7,9 @@ import {
   LIKE_POST_REQUEST,
   LIKE_POST_SUCCESS,
   LIKE_POST_FAIL,
+  CREATE_POST_REQUEST,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_FAIL,
 } from '../constants/userConstants';
 
 const initialState = { posts: [], loading: false, error: null };
@@ -27,6 +30,12 @@ const postsReducer = (state = initialState, action) => {
       return { ...state, likeLoading: false, posts: payload };
     case LIKE_POST_FAIL:
       return { ...state, likeLoading: false, error: payload };
+    case CREATE_POST_REQUEST:
+      return { ...state, createPostLoading: true };
+    case CREATE_POST_SUCCESS:
+      return { ...state, createPostLoading: false, posts: payload };
+    case CREATE_POST_FAIL:
+      return { ...state, createPostLoading: false, error: payload };
     default:
       return state;
   }

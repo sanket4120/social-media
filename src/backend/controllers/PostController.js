@@ -147,12 +147,19 @@ export const createPostHandler = function (schema, request) {
         likedBy: [],
         dislikedBy: [],
       },
+      comments: [],
       username: user.username,
       createdAt: formatDate(),
       updatedAt: formatDate(),
     };
     this.db.posts.insert(post);
-    return new Response(201, {}, { posts: this.db.posts });
+
+    const posts = this.db.posts;
+    const postsWithDetail = posts.map((post) =>
+      getPostWithUserDetails(schema, post)
+    );
+
+    return new Response(200, {}, { posts: postsWithDetail });
   } catch (error) {
     return new Response(
       500,

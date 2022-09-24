@@ -22,6 +22,9 @@ import {
   USER_SIGNUP_FAIL,
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
+  CREATE_POST_REQUEST,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_FAIL,
 } from '../constants/userConstants';
 import toast from 'react-hot-toast';
 import axios from 'axios';
@@ -161,6 +164,17 @@ const dislikePost = (postId) => async (dispatch) => {
   }
 };
 
+const createPost = (post) => async (dispatch) => {
+  try {
+    dispatch({ type: CREATE_POST_REQUEST });
+    const res = await axios.post('/api/posts', { postData: { content: post } });
+    dispatch({ type: CREATE_POST_SUCCESS, payload: res.data.posts });
+  } catch (error) {
+    console.log(error.response.data);
+    dispatch({ type: CREATE_POST_FAIL, error: 'Server Error' });
+  }
+};
+
 export {
   login,
   signup,
@@ -172,4 +186,5 @@ export {
   removeFromBookmarks,
   likePost,
   dislikePost,
+  createPost,
 };
