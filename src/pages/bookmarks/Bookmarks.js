@@ -1,12 +1,7 @@
-import { Post } from '../../components/cards/post/Post';
+import { Posts } from '../../components/posts/Posts';
 
 const Bookmarks = () => {
-  return (
-    <>
-      <Post />
-      <Post />
-    </>
-  );
+  return <Posts />;
 };
 
 export { Bookmarks };

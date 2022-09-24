@@ -4,7 +4,6 @@
 }
 
 .app {
-  background-color: var(--light);
   color: #403f41;
 }
 
@@ -18,7 +17,6 @@
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  font-size: 1rem;
   width: 2.5em;
   height: 2.5em;
   display: inline-flex;
@@ -42,4 +40,12 @@
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+/* input */
+
+.form-control,
+.input-group-text,
+.btn {
+  border-radius: 50rem;
 }

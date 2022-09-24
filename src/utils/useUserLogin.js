@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { validateLogin, validateLoginField } from './validate';
-import { login } from '../redux/index';
+import { login } from '../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const useUserLogin = () => {
@@ -17,7 +17,7 @@ const useUserLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || '/';
-  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+  const { isAuthenticated, loading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {

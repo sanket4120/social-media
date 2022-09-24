@@ -18,7 +18,7 @@ const Login = () => {
 
   return (
     <div className='min-vh-100 d-flex align-items-center'>
-      <div className='auth-container bg-white rounded-2 p-4 mx-auto w-100 shadow-sm border'>
+      <div className='auth-container rounded-3 p-4 mx-auto w-100 border'>
         <h1 className='text-center mb-3 fs-2'>
           Login to <span className='text-primary'>Socio</span>
         </h1>
@@ -31,27 +31,23 @@ const Login = () => {
               name='username'
               value={username}
               onChange={handleChange}
-              className={errors.username ? 'border-danger' : null}
+              className={errors.username && 'border-danger'}
             />
             <Form.Text className='text-danger'>{errors.username}</Form.Text>
           </Form.Group>
 
           <Form.Group className='mb-3'>
             <Form.Label>Password</Form.Label>
-            <InputGroup
-              className={`border rounded-2 ${
-                errors.password ? 'border-danger' : null
-              } `}
-            >
+            <InputGroup className={errors.password && 'border-danger'}>
               <Form.Control
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Enter your password'
                 name='password'
                 value={password}
                 onChange={handleChange}
-                className='border-0 '
+                className={errors.password && 'border-danger'}
               />
-              <InputGroup.Text className='bg-white border-0'>
+              <InputGroup.Text className='bg-white '>
                 <i
                   className={`fa-regular ${
                     showPassword ? 'fa-eye' : 'fa-eye-slash'

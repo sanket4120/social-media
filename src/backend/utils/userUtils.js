@@ -3,14 +3,10 @@ const getUserDetails = (schema, username) => {
   return userDetails;
 };
 
-const getPostWithDetails = (schema, post) => {
+const getPostWithUserDetails = (schema, post) => {
   const userDetails = getUserDetails(schema, post.username);
-  console.log('User details', userDetails);
-  const postWithDetails = { ...post, userDetails: userDetails };
-  postWithDetails.comments = post.comments.map((comment) => {
-    const userDetails = getUserDetails(schema, comment.username);
-    return { ...comment, userDetails: userDetails };
-  });
+  const postWithUserDetails = { ...post, userDetails: userDetails };
+  return postWithUserDetails;
 };
 
-export { getPostWithDetails };
+export { getPostWithUserDetails };

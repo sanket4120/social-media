@@ -1,7 +1,7 @@
 import { Response } from 'miragejs';
 import { formatDate, requiresAuth } from '../utils/authUtils';
 import { v4 as uuid } from 'uuid';
-import { getPostWithDetails } from '../utils/userUtils';
+import { getPostWithUserDetails } from '../utils/userUtils';
 
 /**
  * All the routes related to post are present here.
@@ -28,7 +28,7 @@ export const getAllpostsHandler = function (schema, request) {
     }
     const posts = this.db.posts;
     const postsWithDetail = posts.map((post) =>
-      getPostWithDetails(schema, post)
+      getPostWithUserDetails(schema, post)
     );
 
     return new Response(200, {}, { posts: postsWithDetail });
@@ -101,7 +101,12 @@ export const getAllUserPostsHandler = function (schema, request) {
     const { username } = request.params;
 
     const posts = schema.posts.where({ username })?.models;
-    return new Response(200, {}, { posts });
+
+    const postsWithDetail = posts.map((post) =>
+      getPostWithUserDetails(schema, post.attrs)
+    );
+
+    return new Response(200, {}, { posts: postsWithDetail });
   } catch (error) {
     return new Response(
       500,
