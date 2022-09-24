@@ -82,10 +82,10 @@ const Post = ({ post }) => {
                 ></i>
                 {likes.likeCount}
               </li>
-              {/* <li title='comment'>
+              <li title='comment'>
                 <i className='fa-regular fa-message icon-hover-circle'></i>
                 {comments.length}
-              </li> */}
+              </li>
             </ul>
             <ul className='list-unstyled mb-0'>
               {isBookmarked ? (

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Form, InputGroup, ListGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Avatar } from '../avatar/Avatar';
 import { User } from '../user/User';
 import './search.css';
 
